@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Sociatlas",
+    "slug": "app-sociatlas-com",
+    "version": "1.0.2",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon_ios.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.sociatlas.com"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "adcc6be8-46b6-495b-b54a-a78853996d8b"
+      }
+    }
+  }
+}

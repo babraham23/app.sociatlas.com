@@ -1,0 +1,13 @@
+{
+    "workbench.colorCustomizations": {
+        "titleBar.activeForeground": "#76BDF8",
+        "titleBar.inactiveForeground": "#76BDF8",
+        "titleBar.activeBackground": "#333333",
+        "titleBar.inactiveBackground": "#333333",
+        "statusBar.background": "#76BDF8",
+        "statusBar.foreground": "#333333"
+    },
+    "editor.fontFamily": "Input Mono, Monaco, 'Courier New', monospace",
+    "editor.fontWeight": "400",
+    "editor.fontSize": 12
+}
