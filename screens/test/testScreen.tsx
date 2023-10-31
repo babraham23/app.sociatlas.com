@@ -1,11 +1,13 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import ImagePickerComponent from '../../components/picker/imagePicker';
+
 
 const TestScreen = () => {
     return (
         <View style={styles.container}>
-            <ImagePickerComponent />
+            
+            
+            
         </View>
     );
 };

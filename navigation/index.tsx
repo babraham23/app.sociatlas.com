@@ -29,6 +29,7 @@ import FriendList from '../screens/friends/friendList';
 import CreateEventForm4 from '../screens/events/createEventForm4';
 import EditAddressScreen from '../screens/events/editAddress';
 import CreateInterestsScreen from '../screens/interests/createInterestsScreen';
+import PlacesScreen from '../screens/places/placesScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     // const navigationRef: any = useNavigationContainerRef();
@@ -91,6 +92,7 @@ function RootNavigator() {
                     <Stack.Screen name="FriendList" component={FriendList} options={{ headerShown: false }} />
                     <Stack.Screen name="EditAddressScreen" component={EditAddressScreen} options={{ headerShown: false }} />
                     <Stack.Screen name="CreateInterestsScreen" component={CreateInterestsScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="PlacesScreen" component={PlacesScreen} options={{ headerShown: false }} />
                 </Stack.Group>
             </Stack.Navigator>
         </BottomSheetModalProvider>

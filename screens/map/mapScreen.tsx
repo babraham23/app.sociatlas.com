@@ -1,8 +1,8 @@
 import { StyleSheet, View, Animated, TouchableOpacity } from 'react-native';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from '../../hooks/useTheme';
 import ScrollBar from '../../components/scrollbar';
-import BigMap from '../../components/map/bigMap4';
+import BigMap from '../../components/map/bigMap';
 import FAB from '../../components/buttons/FAB';
 import MapScreenTabBar from '../../components/tabBar/mapScreenTabBar';
 import { Feather } from '@expo/vector-icons';
@@ -11,8 +11,6 @@ import GooglePlacesInput from '../../components/inputs/googleAreaInput';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import EventForms from '../../components/forms/eventForms';
 import SearchForm from '../../components/forms/searchForm';
-import { getAllEvents } from '../../api/events/events.requests';
-import { useEventsContext } from '../../context/events.context';
 import { useUserContext } from '../../context/user.context';
 import { useCreateEventContext } from '../../context/createEvent.context';
 

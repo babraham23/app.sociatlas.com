@@ -8,6 +8,10 @@ import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTheme } from '../../hooks/useTheme';
 import SelectedEventScreen from '../../screens/events/selectedEvent';
 import { useCreateEventContext } from '../../context/createEvent.context';
+import { usePlacesContext } from '../../context/places.context';
+import PlacesMarker from '../layout/placesMarker';
+import { Images } from '../../style/images';
+import { useNavigation } from '@react-navigation/native';
 
 const BigMap = ({ onMapPress }: any) => {
     const { colors, borderRadius } = useTheme();
@@ -16,10 +20,12 @@ const BigMap = ({ onMapPress }: any) => {
     // const { mapRegion, setMapRegion } = useCreateEventContext();
     const { mapRegion, setMapRegion } = useMapContext();
     const { events } = useEventsContext();
+    const { restaurants, bars } = usePlacesContext();
     const [snapPoint, setSnapPoint] = useState('80%');
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.75} />, []);
     const [selectedMarker, setSelectedMarker] = useState<any>(null);
+    const navigation: any = useNavigation();
 
     const handleMarkerPress = (eventId: any) => {
         console.log('Pressed', eventId);
@@ -73,6 +79,10 @@ const BigMap = ({ onMapPress }: any) => {
         }
     }, [mapRegion.latitude, mapRegion.longitude]); // Only trigger when latitude or longitude change
 
+    const onPlacePress = (item: any) => {
+        navigation.navigate('PlacesScreen', { item });
+    };
+
     return (
         <>
             <View style={styles.container}>
@@ -98,6 +108,24 @@ const BigMap = ({ onMapPress }: any) => {
                         return (
                             <Marker key={event._id} coordinate={{ latitude, longitude }} onPress={() => handleOpen(event._id)}>
                                 <MarkerCard interests={event.interests} video={event.video} image={event.image} title={event.title} description={event.description} />
+                            </Marker>
+                        );
+                    })}
+                    {restaurants.map((item: any, i: number) => {
+                        let latitude = item.geometry.lat ? item.geometry.lat : item.geometry.location.lat;
+                        let longitude = item.geometry.lng ? item.geometry.lng : item.geometry.location.lng;
+                        return (
+                            <Marker key={`coordinate_${i}`} coordinate={{ latitude, longitude }} onPress={() => onPlacePress(item)}>
+                                <PlacesMarker icon={Images.RESTAURANT_ICON} />
+                            </Marker>
+                        );
+                    })}
+                    {bars.map((item: any, i: number) => {
+                        let latitude = item.geometry.lat ? item.geometry.lat : item.geometry.location.lat;
+                        let longitude = item.geometry.lng ? item.geometry.lng : item.geometry.location.lng;
+                        return (
+                            <Marker key={`coordinate_${i}`} coordinate={{ latitude, longitude }} onPress={() => onPlacePress(item)}>
+                                <PlacesMarker icon={Images.BEER_ICON} />
                             </Marker>
                         );
                     })}

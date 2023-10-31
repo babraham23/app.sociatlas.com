@@ -5,13 +5,12 @@ import { useTheme } from '../../hooks/useTheme';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
 type Props = {
     style?: any;
     onCreateEventPress?: any;
 };
 
-const FAB = ({ style, onCreateEventPress }: Props) => {
+const PlacesFAB = ({ style, onCreateEventPress }: Props) => {
     const { colors, dark } = useTheme();
     const mode: any = React.useRef(new Animated.Value(0)).current;
     const [zIndex, setZindex] = useState(0);
@@ -104,4 +103,4 @@ const FAB = ({ style, onCreateEventPress }: Props) => {
     );
 };
 
-export default FAB;
+export default PlacesFAB;

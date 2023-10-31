@@ -53,5 +53,9 @@ export const LOGIN_USER_WITH_TOKEN = `${BASE_URL}/user/loginUserWithToken`;
 // See if username already exists
 export const CHECK_USERNAME_AVAILABILITY = `${BASE_URL}/user/checkUsernameAvailability`;
 
-
+// Edit user
 export const EDIT_USER = `${BASE_URL}/user/editUser`;
+
+
+// ------ CHAT ------
+export const FETCH_CHAT_ROOMS = `${BASE_URL}/chatrooms`;
