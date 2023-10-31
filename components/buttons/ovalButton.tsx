@@ -16,7 +16,7 @@ const OvalButton = ({ title, onPress, secondary, style }: Props) => {
         <TouchableOpacity
             onPress={onPress}
             activeOpacity={0.8}
-            style={[style, styles.container, { backgroundColor: secondary ? colors.background : colors.text, borderColor: 'black', borderWidth: secondary ? 2 : 0 }]}
+            style={[style, styles.container, { backgroundColor: secondary ? colors.background : colors.text, borderColor: colors.text, borderWidth: secondary ? 2 : 0 }]}
         >
             <Text bold color={secondary ? colors.text : colors.ovalButtonTextColor}>
                 {title}

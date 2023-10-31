@@ -32,8 +32,8 @@ const MessagesScreen = () => {
         <>
             <MessagesHeader />
             <ScrollView style={[styles.container, { backgroundColor: colors.card }]}>
-                <MessageItem />
-                <MessageItem />
+                {/* <MessageItem />
+                <MessageItem /> */}
             </ScrollView>
         </>
     );

@@ -49,7 +49,6 @@ const ExploreScreen = ({}: Props) => {
     const onMapPress = (item: any) => {
         setEventLatitude(item.latitude);
         setEventLongitude(item.longitude);
-        // handleOpen('eventsForm');
         navigation.navigate('CreateEventForm1');
     };
 
@@ -75,8 +74,6 @@ const ExploreScreen = ({}: Props) => {
                 snapPoints={snapPoints}
                 backdropComponent={renderBackdrop}
                 onDismiss={() => handleDismiss()}
-                // bottomInset={100}
-                // detached={true}
             >
                 {form === 'eventsForm' ? <EventForms handleDismiss={handleDismiss} /> : <SearchForm handleDismiss={handleDismiss} />}
             </BottomSheetModal>

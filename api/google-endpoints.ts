@@ -21,10 +21,7 @@ export const GET_PACES_DETAILS = (place_id: string) => `https://maps.googleapis.
 
 
 
-
-
-// below still seems to be for reference 
-
+// below still seems to be for reference ---------------------------------------
 
 // export const pub_search = (lng: number, lat: number) => `${GOOGLE_BASE_API}bar&location=${lat},${lng}&radius=${radius_number_of_meters}&key=${API_KEY}`;
 export const pub_search = (lng: number, lat: number) => `${GOOGLE_BASE_API}bars&location=${lat},${lng}&radius=${1}&key=${API_KEY}`;

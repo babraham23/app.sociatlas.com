@@ -19,7 +19,7 @@ const Profile = () => {
             {userLoggedIn && user ? (
                 <>
                     <View>
-                        <Avatar  onPress={() => navigation.navigate('ProfileScreen')} />
+                        <Avatar width={100} height={100}  onPress={() => navigation.navigate('ProfileScreen')} />
                     </View>
                     <View style={styles.nameWrapper}>
                         <Text bold fontSize={18}>

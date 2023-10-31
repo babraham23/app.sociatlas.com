@@ -12,14 +12,11 @@ const GooglePlacesInput = ({ style }: any) => {
     const { setMapRegion } = useMapContext();
 
     const handleLocation = (location: any) => {
-        console.log('location -->', location);
         setMapRegion({
             latitude: location.lat,
             longitude: location.lng,
             latitudeDelta: 0.01,
             longitudeDelta: 0.005,
-            // latitudeDelta: mapRegion.latitudeDelta,
-            // longitudeDelta: mapRegion.latitudeDelta,
         });
     };
 
@@ -29,12 +26,12 @@ const GooglePlacesInput = ({ style }: any) => {
             <GooglePlacesAutocomplete
                 GooglePlacesDetailsQuery={{ fields: 'geometry' }}
                 fetchDetails={true} // you need this to fetch the details object onPress
-                placeholder="Search"
+                placeholder="Location search"
                 onPress={(data, details = null) => {
                     // console.log('details -->', JSON.stringify(details));
                     // console.log('data -->', JSON.stringify(data));
-                    handleLocation(details?.geometry?.location);
                     // console.log(JSON.stringify(details?.geometry?.location));
+                    handleLocation(details?.geometry?.location);
                 }}
                 query={{
                     key: API_KEY,
@@ -49,14 +46,6 @@ const GooglePlacesInput = ({ style }: any) => {
                         width: '100%',
                         fontSize: 16,
                         height: 60,
-                        // shadowColor: '#000',
-                        // shadowOffset: {
-                        //     width: 0,
-                        //     height: 4,
-                        // },
-                        // shadowOpacity: 0.3,
-                        // shadowRadius: 4.65,
-                        // borderRadius: borderRadius.input,
                         borderColor: colors.border,
                         paddingLeft: 40,
                         backgroundColor: colors.card,

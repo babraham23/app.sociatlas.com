@@ -12,8 +12,8 @@ import { useUserContext } from '../../context/user.context';
 import { createInterest } from '../../api/interests/interests.requests';
 import { checkInterestAvailibility } from '../../api/interests/interests.requests';
 import { createInterestValidation } from '../../functions/validation';
-import { set } from 'mongoose';
 import { useEventsContext } from '../../context/events.context';
+
 /* 
 Interest name (check if already exists)
 Icon (emoji or image)
@@ -25,7 +25,7 @@ const CreateInterestsScreen = () => {
     const { colors } = useTheme();
     const debounceTimerRef: any = React.useRef(null);
     const { user } = useUserContext();
-    const { getUserInterests } = useEventsContext()
+    const { getUserInterests } = useEventsContext();
     const navigation: any = useNavigation();
     const [title, setTitle] = React.useState('');
     const [image, setImage] = React.useState('');
@@ -51,7 +51,6 @@ const CreateInterestsScreen = () => {
             hidden: false,
         };
         const validation = createInterestValidation(body);
-        console.log('validation -->', validation);
         if (validation.valid) {
             try {
                 let response = await createInterest(body);
