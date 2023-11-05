@@ -56,6 +56,9 @@ export const CHECK_USERNAME_AVAILABILITY = `${BASE_URL}/user/checkUsernameAvaila
 // Edit user
 export const EDIT_USER = `${BASE_URL}/user/editUser`;
 
+// search for user
+export const SEARCH_FOR_USER = `${BASE_URL}/user/searchForUser`;
+
 
 // ------ CHAT ------
 export const FETCH_CHAT_ROOMS = `${BASE_URL}/chatrooms`;

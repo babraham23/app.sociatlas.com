@@ -30,6 +30,9 @@ import CreateEventForm4 from '../screens/events/createEventForm4';
 import EditAddressScreen from '../screens/events/editAddress';
 import CreateInterestsScreen from '../screens/interests/createInterestsScreen';
 import PlacesScreen from '../screens/places/placesScreen';
+import MessagesFriendList from '../screens/messages/messagesFriendList';
+import MyFriendList from '../screens/friends/myFriendsList';
+import FriendProfileScreen from '../screens/friends/friendProfileScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     // const navigationRef: any = useNavigationContainerRef();
@@ -88,11 +91,14 @@ function RootNavigator() {
                 <Stack.Screen name="CreateEventForm2" component={CreateEventForm2} options={{ headerShown: false }} />
                 <Stack.Screen name="CreateEventForm3" component={CreateEventForm3} options={{ headerShown: false }} />
                 <Stack.Screen name="CreateEventForm4" component={CreateEventForm4} options={{ headerShown: false }} />
+                <Stack.Screen name="FriendProfileScreen" component={FriendProfileScreen} options={{ headerShown: false, animation: 'fade' }} />
                 <Stack.Group screenOptions={{ presentation: 'modal' }}>
                     <Stack.Screen name="FriendList" component={FriendList} options={{ headerShown: false }} />
                     <Stack.Screen name="EditAddressScreen" component={EditAddressScreen} options={{ headerShown: false }} />
                     <Stack.Screen name="CreateInterestsScreen" component={CreateInterestsScreen} options={{ headerShown: false }} />
                     <Stack.Screen name="PlacesScreen" component={PlacesScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="MessagesFriendList" component={MessagesFriendList} options={{ headerShown: false }} />
+                    <Stack.Screen name="MyFriendList" component={MyFriendList} options={{ headerShown: false }} />
                 </Stack.Group>
             </Stack.Navigator>
         </BottomSheetModalProvider>

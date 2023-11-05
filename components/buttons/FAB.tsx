@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Animated, TouchableOpacity } from 'react-native';
-import { FontAwesome5, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../hooks/useTheme';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-
 
 type Props = {
     style?: any;
@@ -30,10 +29,15 @@ const FAB = ({ style, onCreateEventPress }: Props) => {
 
     const eventY = mode.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, -120],
+        outputRange: [0, -180],
     });
 
     const directionsY = mode.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, -120],
+    });
+
+    const friendsY = mode.interpolate({
         inputRange: [0, 1],
         outputRange: [0, -60],
     });
@@ -87,6 +91,13 @@ const FAB = ({ style, onCreateEventPress }: Props) => {
                     <TouchableOpacity onPress={() => navigation.navigate('MyEventsScreen')} activeOpacity={0.8}>
                         <LinearGradient colors={[`${colors.primary}`, `${colors.secondary}`]} style={styles.secondaryButton}>
                             <MaterialIcons name="event" size={24} color={'white'} />
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </Animated.View>
+                <Animated.View style={{ position: 'absolute', top: friendsY }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('MyFriendList')} activeOpacity={0.8}>
+                        <LinearGradient colors={[`#ff4500`, `#ff703b`]} style={styles.secondaryButton}>
+                            <FontAwesome5 name="user-friends" size={24} color="white" />
                         </LinearGradient>
                     </TouchableOpacity>
                 </Animated.View>

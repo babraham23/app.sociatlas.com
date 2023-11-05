@@ -5,14 +5,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../../hooks/useTheme';
 import { useUserContext } from '../../context/user.context';
 
-const Avatar = ({ edit, onPress, width, height }: any) => {
+const Avatar = ({ edit, onPress, width, height, marginRight }: any) => {
     const { colors } = useTheme();
     const { user } = useUserContext();
 
     let fontSize = width / 2;
 
     return (
-        <TouchableOpacity onPress={onPress} activeOpacity={1} style={styles.container}>
+        <TouchableOpacity onPress={onPress} activeOpacity={1} style={[styles.container, { marginRight: marginRight ? marginRight : 10 } ]}>
             {user.profilePic ? (
                 <Image source={{ uri: user.profilePic }} style={[styles.image, { width, height }]} />
             ) : (
@@ -29,7 +29,6 @@ const Avatar = ({ edit, onPress, width, height }: any) => {
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
-        marginRight: 10,
     },
     avatar: {
         borderRadius: 50,

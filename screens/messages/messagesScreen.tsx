@@ -4,9 +4,12 @@ import MessagesHeader from '../../components/headers/messagesHeader';
 import MessageItem from '../../components/layout/messageItem';
 import { useTheme } from '../../hooks/useTheme';
 import { fetchChatRooms } from '../../api/chat/chat.requests';
+import MessageFab from '../../components/buttons/messageFAB';
+import { useNavigation } from '@react-navigation/native';
 
 const MessagesScreen = () => {
     const { colors } = useTheme();
+    const navigation: any = useNavigation();
 
     const getChatRooms = async () => {
         const res = await fetchChatRooms();
@@ -35,6 +38,7 @@ const MessagesScreen = () => {
                 {/* <MessageItem />
                 <MessageItem /> */}
             </ScrollView>
+            <MessageFab style={styles.fab} onPress={() => navigation.navigate('MessagesFriendList')} />
         </>
     );
 };
@@ -45,5 +49,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+    },
+    fab: {
+        position: 'absolute',
+        bottom: 40,
+        right: 30,
     },
 });

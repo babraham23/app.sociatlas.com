@@ -17,6 +17,7 @@ export const CustomDefaultTheme = {
         border: '#EAEAEA',
         seperator: '#B4B4B4',
         ovalButtonTextColor: '#fff',
+        font_grey: '#707070',
     },
     borderRadius: {
         input: 8,
@@ -43,6 +44,7 @@ export const CustomDarkTheme = {
         border: '#3a3b3c',
         seperator: '#3a3b3c',
         ovalButtonTextColor: '#000',
+        font_grey: '#707070',
     },
     borderRadius: {
         input: 10,

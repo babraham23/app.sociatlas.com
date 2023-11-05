@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER, LOGIN_USER_WITH_TOKEN, CHECK_USERNAME_AVAILABILITY, EDIT_USER } from '../endpoints';
+import { LOGIN_USER, REGISTER_USER, LOGIN_USER_WITH_TOKEN, CHECK_USERNAME_AVAILABILITY, EDIT_USER, SEARCH_FOR_USER } from '../endpoints';
 import { HTTP } from '../http';
 
 export const registerUser = (DATA: any, HEADERS?: any) => {
@@ -41,6 +41,14 @@ export const editUser = async (id: any, DATA?: any) => {
     return HTTP({
         Method: 'PUT',
         Url: `${EDIT_USER}/${id}`,
+        Data: DATA,
+    });
+};
+
+export const searchForUser = (DATA: any) => {
+    return HTTP({
+        Method: 'POST',
+        Url: SEARCH_FOR_USER,
         Data: DATA,
     });
 };
