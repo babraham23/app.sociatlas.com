@@ -1,36 +1,39 @@
 import React, { createContext, FC, useContext, useState } from 'react';
 import { createEvent, getEventsNearby } from '../api/events/events.requests';
-import { getAllInterests, getInterestsByCreator, getMostUsedInterests } from '../api/interests/interests.requests';
+import { getAllInterests, getInterestsByCreator, getMostUsedInterests, getScrollBarData } from '../api/interests/interests.requests';
 import { useUserContext } from './user.context';
+import { set } from 'react-native-reanimated';
+import { getGoogleBars, getGoogleRestaurants } from '../api/google/google.requests';
 
 type Context = {
     events?: any;
-    setEvents?: any;
-    scrollData?: any;
-    setScrollData?: any;
-    selectedInterest?: any;
-    setSelectedInterest?: any;
-    scrollview_ref?: any;
-    createUserEvent?: any;
-    getEventsByLocation?: any;
     interests?: any;
     setInterests?: any;
+    selectedInterest?: any;
+    setSelectedInterest?: any;
+    scrollBarData?: any;
+    setScrollBarData?: any;
+    mapScreenEvents?: any;
+    setMapScreenEvents?: any;
     interestRadius?: any;
     setInterestRadius?: any;
+    createUserEvent?: any;
+    getEventsByLocation?: any;
     userInterests?: any;
     setUserInterests?: any;
     getUserInterests?: any;
     getInterests?: any;
+    getMapEventsByLocation?: any;
+    selecteMapInterests?: any;
+    setSelectedMapInterests?: any;
 };
 
 const EventsContext = createContext<Context>({
     events: '',
-    setEvents: () => [],
-    scrollData: '',
-    setScrollData: () => [],
+    scrollBarData: '',
+    setScrollBarData: () => [],
     selectedInterest: '',
     setSelectedInterest: () => [],
-    scrollview_ref: {},
     createUserEvent: () => [],
     interests: [],
     setInterests: () => [],
@@ -40,29 +43,37 @@ const EventsContext = createContext<Context>({
     userInterests: [],
     setUserInterests: () => [],
     getUserInterests: () => [],
-    getInterests: () => []
+    getInterests: () => [],
+    getMapEventsByLocation: () => [],
+    mapScreenEvents: [],
+    setMapScreenEvents: () => [],
+    selecteMapInterests: [],
+    setSelectedMapInterests: () => [],
 });
 
 export const EventsProvider = ({ children }: any) => {
     const { user } = useUserContext();
     const [appLoaded, setAppLoaded]: any = useState(false);
     const [events, setEvents]: any = useState([]);
-    const [scrollData, setScrollData]: any = useState([]);
+    const [scrollBarData, setScrollBarData]: any = useState([]);
     const [selectedInterest, setSelectedInterest]: any = useState([]);
-    const scrollview_ref: any = React.useRef({});
     const [interests, setInterests]: any = useState([]);
     const [interestRadius, setInterestRadius]: any = useState(1000);
     const [userInterests, setUserInterests] = useState([]);
 
+    const [mapScreenEvents, setMapScreenEvents]: any = useState([]);
+    const [activeCategories, setActiveCategories]: any = useState({});
+    const [selecteMapInterests, setSelectedMapInterests] = React.useState<any>([]);
+
+    const [googlePlaces, setGooglePlaces] = useState<any>([]);
+    const [activeGooglePlaces, setActiveGooglePlaces] = useState<any>({});
+    const [selectedGooglePlaces, setSelectedGooglePlaces] = useState<any>([]);
+
     const handleAppLoad = async () => {
         console.log('------ APP LOAD ------');
-        /**
-         * 1. Get user location
-         * 2. Get all interests
-         * 3. Get events by interest, location, date, and distance
-         */
         try {
             getInterests();
+            getScrollData();
         } catch (error) {
             console.log(error);
         } finally {
@@ -72,8 +83,7 @@ export const EventsProvider = ({ children }: any) => {
 
     const getInterests = async () => {
         try {
-            let response = await getMostUsedInterests();
-            // console.log('get interests response -->', JSON.stringify(response.data));
+            let response = await getScrollBarData();
             setInterests(response.data);
             setSelectedInterest(response.data[0]);
             getEventsByLocation(response.data[0].title, interestRadius);
@@ -87,15 +97,68 @@ export const EventsProvider = ({ children }: any) => {
             latitude: 54.969450152452, // lat
             longitude: -1.6194726722736448, //lng
             interestTitle,
-            // maxDistance: 16093.4, //distance
             maxDistance: interestRadius, //distance
         };
         try {
             let response = await getEventsNearby(data);
-            // console.log('events response -->', response.data);
             setEvents(response.data);
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const getMapEventsByLocation = async (interestTitle?: any, interestRadius?: number) => {
+        if (interestTitle === 'Restaurants' || interestTitle === 'Drinks') {
+            getGooglePlaces(interestTitle);
+        } else {
+            let data = {
+                latitude: 54.969450152452,
+                longitude: -1.6194726722736448,
+                interestTitle,
+                maxDistance: interestRadius,
+            };
+            try {
+                let response = await getEventsNearby(data);
+                if (activeCategories[interestTitle]) {
+                    const filteredEvents = mapScreenEvents.filter((event: any) => !event.interests.some((interest: any) => interest.title === interestTitle));
+                    setMapScreenEvents(filteredEvents);
+                    setActiveCategories({ ...activeCategories, [interestTitle]: false });
+                } else {
+                    const newEvents = response.data.filter((newEvent: any) => !mapScreenEvents.some((existingEvent: any) => existingEvent._id === newEvent._id));
+                    setMapScreenEvents([...mapScreenEvents, ...newEvents]);
+                    setActiveCategories({ ...activeCategories, [interestTitle]: true });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    console.log('map screen events -->', JSON.stringify(mapScreenEvents));
+
+    const getGooglePlaces = async (interestTitle: string) => {
+        console.log('interest title -->', interestTitle);
+        let data = {
+            latitude: 54.969450152452,
+            longitude: -1.6194726722736448,
+            interestTitle,
+            maxDistance: interestRadius,
+        };
+        if (interestTitle === 'Restaurants') {
+            try {
+                let response = await getGoogleRestaurants(data.latitude, data.longitude, data.maxDistance);
+                console.log('response restaurants -->', JSON.stringify(response));
+                // setRestaurants(response.data.results);
+            } catch (error) {
+                console.log(error);
+            }
+        } else if (interestTitle === 'Drinks') {
+            try {
+                let response = await getGoogleBars(data.latitude, data.longitude, data.maxDistance);
+                console.log('response bars -->', response);
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
@@ -113,15 +176,25 @@ export const EventsProvider = ({ children }: any) => {
     };
 
     const getUserInterests = async () => {
-        console.log('GETTING USER INTERESTS')
         try {
             let response = await getInterestsByCreator(user._id);
-            console.log('user interests response -->', response.data);
             if (response.status === 200) {
                 setUserInterests(response.data);
             }
         } catch (error) {
             console.log('error -->', error);
+        }
+    };
+
+    // getScrollBarData
+    const getScrollData = async () => {
+        try {
+            let response = await getScrollBarData();
+            setScrollBarData(response.data);
+            getMapEventsByLocation(response.data[0].title, interestRadius);
+            setSelectedMapInterests([response.data[0]._id]);
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -133,21 +206,24 @@ export const EventsProvider = ({ children }: any) => {
         <EventsContext.Provider
             value={{
                 events,
-                setEvents,
-                scrollData,
-                setScrollData,
+                interests,
+                userInterests,
+                scrollBarData,
+                setScrollBarData,
                 selectedInterest,
                 setSelectedInterest,
-                scrollview_ref,
-                interests,
-                createUserEvent,
                 getEventsByLocation,
                 interestRadius,
                 setInterestRadius,
-                userInterests,
                 setUserInterests,
                 getUserInterests,
-                getInterests
+                getInterests,
+                getMapEventsByLocation,
+                createUserEvent,
+                mapScreenEvents,
+                setMapScreenEvents,
+                selecteMapInterests,
+                setSelectedMapInterests,
             }}
         >
             {children}

@@ -12,11 +12,11 @@ type Props = {
     handleDismiss?: any;
 };
 
-const InterestLayout = ({ title, onPress, items, handleDismiss }: Props) => {
+const InterestLayout = ({ title, items, handleDismiss }: Props) => {
     const { addInterest, removeInterest, interests } = useCreateEventContext();
 
     const handleInterest = (item: any) => {
-        if (interests.length < 3) {
+        if (interests.length < 1) {
             if (interests.some((si: any) => si._id === item._id)) {
                 removeInterest(item._id);
             } else {
@@ -30,7 +30,7 @@ const InterestLayout = ({ title, onPress, items, handleDismiss }: Props) => {
     };
 
     React.useEffect(() => {
-        if (interests.length >= 3) {
+        if (interests.length >= 1) {
             handleDismiss();
         }
     }, [interests]);

@@ -4,7 +4,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { useTheme } from '../../hooks/useTheme';
 import { Text } from '../../style/typography';
 import { useCreateEventContext } from '../../context/createEvent.context';
-import { getAddressFromCoordinates } from '../../api/google/address';
+import { getAddressFromCoordinates } from '../../api/google/google.requests';
 
 
 type Props = {

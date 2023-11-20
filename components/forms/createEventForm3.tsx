@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Text } from '../../style/typography';
 import OvalButton from '../buttons/ovalButton';
-import NumberOfPeople from '../inputs/numberOfPeople';
+import NumberOfPeople from '../inputs/smallTextInput';
 import DateTimeAccordion from '../inputs/dateTimeInput';
 import TextArea from '../inputs/textArea';
 import FormHeader from '../headers/formHeader';

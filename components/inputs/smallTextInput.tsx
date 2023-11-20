@@ -9,9 +9,10 @@ type Props = {
     onChangeText?: any;
     keyboardType?: any;
     value?: any;
+    maxLength?: number;
 };
 
-const FormInput = ({ style, error, placeholder, onChangeText, keyboardType, value }: Props) => {
+const SmallTextInput = ({ style, error, placeholder, onChangeText, maxLength, value }: Props) => {
     const { colors, borderRadius } = useTheme();
     const [bottomBorderColor, setBottomBorderColor] = React.useState(colors.border);
     return (
@@ -27,7 +28,7 @@ const FormInput = ({ style, error, placeholder, onChangeText, keyboardType, valu
                     secureTextEntry={false}
                     onChangeText={onChangeText}
                     keyboardType={'numeric'}
-                    maxLength={3}
+                    maxLength={maxLength ? maxLength : 3}
                     // onFocus={() => setBottomBorderColor(colors.text)}
                     // onBlur={() => setBottomBorderColor(colors.border)}
                     value={value}
@@ -69,4 +70,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FormInput;
+export default SmallTextInput;

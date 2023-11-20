@@ -5,10 +5,12 @@ import { Text } from '../../style/typography';
 import { useEventsContext } from '../../context/events.context';
 
 const ScrollBar = ({ style }: any) => {
-    const { interests, scrollview_ref, setSelectedInterest, selectedInterest, interestRadius, getEventsByLocation } = useEventsContext();
+    const { interests, setSelectedInterest, selectedInterest, interestRadius, getEventsByLocation } = useEventsContext();
     const { colors, borderRadius }: any = useTheme();
     const [{ dynamicIndex }, setState] = React.useState({ dynamicIndex: 0 });
     let [posArr]: any = React.useState([]);
+    const scrollview_ref: any = React.useRef({});
+
 
     const handleChange = (item: any, key: any) => {
         setSelectedInterest(item);
@@ -52,12 +54,13 @@ const ScrollBar = ({ style }: any) => {
                                 posArr[key] = layout.x;
                             }}
                         >
-                            {item.image ? 
-                                <Image source={{uri: item.image}} style={styles.image} />
-                                :
+                            {item.image ? (
+                                <Image source={{ uri: item.image }} style={styles.image} />
+                            ) : (
                                 <Text fontSize={18} style={styles.icon}>
-                                {item.icon}
-                            </Text>}
+                                    {item.icon}
+                                </Text>
+                            )}
                             <Text
                                 bold
                                 fontSize={14}
@@ -110,6 +113,6 @@ const styles = StyleSheet.create({
         marginRight: 5,
         borderRadius: 13,
         resizeMode: 'cover',
-    }
+    },
 });
 export default ScrollBar;

@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import FormTitle from '../../components/layout/formTitle';
 import FormInput from '../../components/inputs/formInput';
@@ -6,12 +6,12 @@ import { Text } from '../../style/typography';
 import ImagePicker from '../../components/picker/imagePicker';
 import OvalButton from '../../components/buttons/ovalButton';
 import BigIterestIcon from '../../components/buttons/bigInterestIcon';
-import { useTheme } from '../../hooks/useTheme';
 import { useNavigation } from '@react-navigation/native';
 import { useUserContext } from '../../context/user.context';
-import { createInterest } from '../../api/interests/interests.requests';
-import { checkInterestAvailibility } from '../../api/interests/interests.requests';
-import { createInterestValidation } from '../../functions/validation';
+import { checkInterestAvailibility, createInterest } from '../../api/interests/interests.requests';
+import { createInterestWithEmojiValidation, createInterestWithImageValidation } from '../../functions/validation';
+import EmojiOrImageToggle from '../../components/layout/emojiOrImageToggle';
+import SmallTextInput from '../../components/inputs/smallTextInput';
 import { useEventsContext } from '../../context/events.context';
 
 /* 
@@ -22,7 +22,6 @@ Icon (emoji or image)
 const pageTitle = 'Create an Interest';
 
 const CreateInterestsScreen = () => {
-    const { colors } = useTheme();
     const debounceTimerRef: any = React.useRef(null);
     const { user } = useUserContext();
     const { getUserInterests } = useEventsContext();
@@ -32,6 +31,11 @@ const CreateInterestsScreen = () => {
     const [imageError, setImageError] = React.useState('');
     const [interestError, setInterestError] = React.useState('');
     const [interestExistsError, setInterestExistsError] = React.useState(false);
+    const [emojiOrImage, setEmojiOrImage] = React.useState(false); // true for emoji, false for image
+    const [icon, setIcon]: any = React.useState('🥃');
+    const [iconError, setIconError]: any = React.useState('');
+
+    console.log('icon length -->', icon.length);
 
     const handleDismiss = () => {
         console.log('dismiss');
@@ -44,13 +48,13 @@ const CreateInterestsScreen = () => {
         setInterestExistsError(false);
         let body = {
             title,
-            icon: '',
+            icon,
             createdBy: user._id,
             selected: 1,
             image,
             hidden: false,
         };
-        const validation = createInterestValidation(body);
+        const validation = !emojiOrImage ? createInterestWithEmojiValidation(body) : createInterestWithImageValidation(body);
         if (validation.valid) {
             try {
                 let response = await createInterest(body);
@@ -69,6 +73,9 @@ const CreateInterestsScreen = () => {
                 }
                 if (item.name === 'imageError') {
                     setImageError(item.error);
+                }
+                if (item.name === 'iconError') {
+                    setIconError(item.error);
                 }
             });
         }
@@ -102,14 +109,13 @@ const CreateInterestsScreen = () => {
     };
 
     const checkIfinterestAlreadyExists = async (interestToCheck: string) => {
-        // Check if the username hasn't changed
         if (interestToCheck === title) {
             setInterestExistsError(false);
             return;
         }
 
         let body = { title: interestToCheck };
-        console.log('body -->', body);
+
         try {
             const res = await checkInterestAvailibility(body);
             console.log('res -->', res);
@@ -138,11 +144,22 @@ const CreateInterestsScreen = () => {
             </Text>
             <FormTitle title="Interest" error={interestExistsError ? 'Interest already exists' : interestError} />
             <FormInput onChangeText={(text: any) => handleTitleChange(text.replace('@', ''))} error={interestExistsError} placeholder="What is your interest?" />
-            <FormTitle title="Icon" error={imageError} />
-            <ImagePicker setBlobImage={setImage} />
+            <EmojiOrImageToggle setEmojiOrImage={setEmojiOrImage} />
+            {!emojiOrImage ? (
+                <>
+                    <FormTitle title="Add Emoji" error={iconError} />
+                    <SmallTextInput value={icon} placeholder="🎉" onChangeText={(value: any) => setIcon(value)} maxLength={1} />
+                </>
+            ) : (
+                <>
+                    <FormTitle title="Add Image" error={imageError} />
+                    <ImagePicker setBlobImage={setImage} />
+                </>
+            )}
+
             {title && (
                 <View style={styles.interestWrapper}>
-                    <BigIterestIcon title={title} icon={image} />
+                    <BigIterestIcon title={title} image={image} icon={icon} />
                 </View>
             )}
             <View style={styles.buttonWrapper}>

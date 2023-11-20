@@ -20,7 +20,7 @@ const EventInterests = ({ onPress }: any) => {
                 </View>
             ) : (
                 <View style={styles.placeholderWrapper}>
-                    <Text color={colors.dark_grey}>Pick up to 3 interests</Text>
+                    <Text color={colors.dark_grey}>Pick an interests</Text>
                 </View>
             )}
 

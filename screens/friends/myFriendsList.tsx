@@ -26,7 +26,7 @@ const dd = [
 const MyFriendList = () => {
     const [scrollYValue] = useState(new Animated.Value(0));
     const navigation: any = useNavigation();
-    const [ searchResults, setSearchResults ] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
 
     const handleNavigation = () => {
         navigation.goBack();
@@ -56,7 +56,7 @@ const MyFriendList = () => {
                 scrollEventThrottle={16}
                 onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYValue } } }], { useNativeDriver: false })}
                 contentContainerStyle={styles.contentContainer}
-                renderItem={({ item }) => (
+                renderItem={({ item }: any) => (
                     <MessageFriendBanner onPress={handleNavigation} key={item._id} name={item.name} username={item.username} profilePic={item.profilePic} _id={item._id} />
                 )}
                 showsVerticalScrollIndicator={false}

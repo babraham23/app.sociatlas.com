@@ -10,9 +10,10 @@ type Props = {
     items?: any;
     disabled?: boolean;
     icon?: any;
+    image?: any;
 };
 
-const BigIterestIcon = ({ title, onPress, disabled, icon }: Props) => {
+const BigIterestIcon = ({ title, onPress, disabled, icon, image }: Props) => {
     const { colors } = useTheme();
     const [selected, setSelected] = React.useState(false);
     console.log('passed icon', icon);
@@ -27,7 +28,8 @@ const BigIterestIcon = ({ title, onPress, disabled, icon }: Props) => {
                 style={[styles.wrapper, { backgroundColor: colors.card, borderColor: selected ? colors.primary : colors.border }]}
                 activeOpacity={0.8}
             >
-                {icon ? <Image source={{ uri: icon }} style={[styles.image, { borderColor: colors.border }]} /> : <View style={[styles.image, { borderColor: colors.border }]} />}
+                {image && <Image source={{ uri: icon }} style={[styles.image, { borderColor: colors.border }]} />}
+                {icon && <Text fontSize={30} style={styles.icon}>{icon}</Text>}
                 <Text fontSize={28}>{title}</Text>
             </TouchableOpacity>
         </View>
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        marginRight: 5,
+        marginRight: 10,
     },
     image: {
         width: 60,

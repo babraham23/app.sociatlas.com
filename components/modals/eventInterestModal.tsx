@@ -4,6 +4,7 @@ import SearchInput from '../inputs/searchInput';
 import { useTheme } from '../../hooks/useTheme';
 import { useEventsContext } from '../../context/events.context';
 import InterestLayout from '../layout/interestLayout';
+import { Text } from '../../style/typography';
 
 type Props = {
     handleDismiss?: any;
@@ -36,6 +37,9 @@ const EventInterestModal = ({ handleDismiss }: Props) => {
     return (
         <View style={[{ flex: 1, backgroundColor: colors.card }]}>
             <View style={[styles.container]}>
+                <Text bold style={styles.header}>
+                    Select an interest
+                </Text>
                 <SearchInput onChangeText={(value: string) => setSearch(value)} placeholder="Search..." />
                 <InterestLayout title={search !== '' ? 'Results' : 'Recommended'} items={filteredInterests} handleDismiss={handleDismiss} />
             </View>
@@ -49,6 +53,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
+    },
+    header: {
+        marginBottom: 15,
     },
     closeButton: {
         position: 'absolute',

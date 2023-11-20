@@ -2,10 +2,9 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Text } from '../../style/typography';
 import OvalButton from '../../components/buttons/ovalButton';
-import NumberOfPeople from '../../components/inputs/numberOfPeople';
+import SmallTextInout from '../../components/inputs/smallTextInput';
 import TextArea from '../../components/inputs/textArea';
 import FormHeader from '../../components/headers/formHeader';
-import ImagePicker from '../../components/picker/imagePicker';
 import FormTitle from '../../components/layout/formTitle';
 import { useNavigation } from '@react-navigation/native';
 import { useCreateEventContext } from '../../context/createEvent.context';
@@ -25,12 +24,13 @@ const CreateEventForm4 = ({}: Props) => {
     const [maxCapacityError, setMaxCapacityError] = React.useState('');
     const navigation: any = useNavigation();
     const { setAdditionalInfo, setMaxCapacity, setPrice, handleCreateEvent, removeState } = useCreateEventContext();
-    const { getEventsByLocation, selectedInterest, interestRadius, getInterests } = useEventsContext();
+    const { getEventsByLocation, selectedInterest, interestRadius, getInterests, getMapEventsByLocation } = useEventsContext();
 
     const onContinuePress = async () => {
         let response = await handleCreateEvent();
         if (response === 200) {
             getEventsByLocation(selectedInterest, interestRadius);
+            getMapEventsByLocation(selectedInterest, interestRadius);
             // get scrollbar
             getInterests();
             navigation.pop(4);
@@ -38,9 +38,9 @@ const CreateEventForm4 = ({}: Props) => {
     };
 
     const handleCancelPress = () => {
-        removeState()
+        removeState();
         navigation.pop(4);
-    }
+    };
 
     return (
         <>
@@ -53,9 +53,9 @@ const CreateEventForm4 = ({}: Props) => {
                     <FormTitle title="Additional Information" />
                     <TextArea placeholder="What will you be wearing? What table number?" onChangeText={setAdditionalInfo} />
                     <FormTitle title="Max number of people" error={maxCapacityError} />
-                    <NumberOfPeople placeholder="000" onChangeText={(value: any) => setMaxCapacity(value)} />
+                    <SmallTextInout placeholder="000" onChangeText={(value: any) => setMaxCapacity(value)} />
                     <FormTitle title="Entry fee" error={maxCapacityError} />
-                    <NumberOfPeople placeholder="000" onChangeText={(value: any) => setPrice(value)} />
+                    <SmallTextInout placeholder="000" onChangeText={(value: any) => setPrice(value)} />
                 </View>
             </View>
             <View style={styles.buttonWrapper}>

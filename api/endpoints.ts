@@ -39,6 +39,12 @@ export const CHECK_INTEREST_AVAILABILITY = `${BASE_URL}/interests/checkInterestA
 // nterests/getInterestsByCreator/652094be3fc989966718a950
 export const GET_INTERESTS_BY_CREATOR = `${BASE_URL}/interests/getInterestsByCreator`;
 
+// interests/getInterests
+export const GET_INTERESTS = `${BASE_URL}/interests/getInterests`;
+
+// interests.getScrollBarData
+export const GET_SCROLL_BAR_DATA = `${BASE_URL}/interests/getScrollBarData`;
+
 
 // ------ USER ------
 // Register user

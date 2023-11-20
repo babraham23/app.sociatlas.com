@@ -8,9 +8,9 @@ export const radius_number_of_meters = 100;
 let maxheight = 2340;
 let maxwidth = 4160;
 
-export const RESTAURANT_SEARCH = (lat: number, lng: number) => `${GOOGLE_BASE_API}restaurants&location=${lat},${lng}&radius=${radius_number_of_meters}&key=${API_KEY}`;
+export const RESTAURANT_SEARCH = (lat: number, lng: number, radius: number) => `${GOOGLE_BASE_API}restaurants&location=${lat},${lng}&radius=${radius}&key=${API_KEY}`;
 
-export const BAR_SEARCH = (lat: number, lng: number) => `${GOOGLE_BASE_API}bars&location=${lat},${lng}&radius=${radius_number_of_meters}&key=${API_KEY}`;
+export const BAR_SEARCH = (lat: number, lng: number, radius: number) => `${GOOGLE_BASE_API}bars&location=${lat},${lng}&radius=${radius}&key=${API_KEY}`;
 
 export const GET_PLACES_PHOTOS = (photo_reference: any) =>
     `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${maxwidth}&maxheight=${maxheight}&photo_reference=${photo_reference}&key=${API_KEY}`;

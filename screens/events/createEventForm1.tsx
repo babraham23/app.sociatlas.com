@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createEventform1Validation } from '../../functions/validation';
 import { CreateEventForm1Model } from '../../_models/events/createEventForm1.model';
 import { useCreateEventContext } from '../../context/createEvent.context';
-import { set } from 'mongoose';
+
 
 const pageTitle = 'Create an event and meet people with the same interests';
 

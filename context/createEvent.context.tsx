@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { createEvent } from '../api/events/events.requests';
 import { useUserContext } from './user.context';
-import { set } from 'mongoose';
 
 /*
 FORM 1
@@ -104,7 +103,6 @@ export const CreateEventProvider = ({ children }: any) => {
         console.log('Create event body', JSON.stringify(body));
         try {
             let response = await createEvent(body);
-            console.log('create event response -->', JSON.stringify(response.data));
             if (response.status === 200) {
                 removeState();
                 return response.status;
@@ -128,7 +126,7 @@ export const CreateEventProvider = ({ children }: any) => {
         setAdditionalInfo('');
         setMaxCapacity(0);
         setPrice(0);
-    }
+    };
 
     const addInterest = (item: any) => {
         setInterests([...interests, item]);

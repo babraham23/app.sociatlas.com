@@ -14,6 +14,7 @@ import { useTheme } from '../../hooks/useTheme';
 import EventInterests from '../../components/layout/eventInterests';
 import { useEventsContext } from '../../context/events.context';
 
+
 const title = 'A few more details';
 
 const CreateEventForm2 = () => {

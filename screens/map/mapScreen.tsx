@@ -1,7 +1,6 @@
 import { StyleSheet, View, Animated, TouchableOpacity } from 'react-native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from '../../hooks/useTheme';
-import ScrollBar from '../../components/scrollbar';
 import BigMap from '../../components/map/bigMap';
 import FAB from '../../components/buttons/FAB';
 import MapScreenTabBar from '../../components/tabBar/mapScreenTabBar';
@@ -13,6 +12,7 @@ import EventForms from '../../components/forms/eventForms';
 import SearchForm from '../../components/forms/searchForm';
 import { useUserContext } from '../../context/user.context';
 import { useCreateEventContext } from '../../context/createEvent.context';
+import MapScrollBar from '../../components/scrollbar/mapScrollBar';
 
 type Props = {};
 
@@ -61,7 +61,7 @@ const ExploreScreen = ({}: Props) => {
                         <Feather name="menu" size={34} color={colors.text} />
                     </TouchableOpacity>
                 </View>
-                <ScrollBar style={styles.scrollbar} />
+                <MapScrollBar style={styles.scrollbar} />
                 <BigMap onMapPress={onMapPress} />
                 {userLoggedIn && <FAB onCreateEventPress={onMapPress} style={styles.fab} />}
                 <MapScreenTabBar style={styles.tabBar} onSearchFormPress={() => handleOpen('search')} />
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     scrollbar: {
         width: '100%',
         position: 'absolute',
-        top: 120,
+        top: 110,
         zIndex: 80,
     },
     burgerWrapper: {
@@ -133,8 +133,3 @@ const styles = StyleSheet.create({
 });
 
 export default ExploreScreen;
-
-/*
-"latitude": 54.96910861470028, 
-"longitude": -1.617974761369099
-*/

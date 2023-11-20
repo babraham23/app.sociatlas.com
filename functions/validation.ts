@@ -1,3 +1,8 @@
+function containsEmoji(s: string): boolean {
+    const emojiRegexp = /\p{Emoji_Presentation}/gu;
+    return emojiRegexp.test(s);
+}
+
 export const validateFormOne = (DATA: any) => {
     let valid = true;
     let errors = [];
@@ -116,7 +121,7 @@ export const validateLogin = (body: any) => {
 };
 
 export const createEventform1Validation = (data: any) => {
-    console.log('passed data', data.location.coordinates[0])
+    console.log('passed data', data.location.coordinates[0]);
     let valid = true;
     let errors = [];
     let { title, description, date, location } = data;
@@ -200,7 +205,47 @@ export const createEventform3Validation = (data: any) => {
     };
 };
 
-export const createInterestValidation = (data: any) => {
+export const createInterestWithEmojiValidation = (data: any) => {
+    let valid = true;
+    let errors = [];
+    let { title, icon } = data;
+    console.log('icon', icon);
+
+    // Check if title is empty
+    if (title.trim() === '') {
+        errors.push({
+            name: 'titleError',
+            error: 'Required',
+        });
+        valid = false;
+    }
+
+    // Check if icon is not a blank string and is one character
+    if (!icon || icon.length !== 2) {
+        errors.push({
+            name: 'iconError',
+            error: 'Required',
+        });
+        valid = false;
+    } else {
+        // Check if the icon is an emoji
+        const emojiRegex = /^(\p{Emoji_Presentation}|\p{Extended_Pictographic})$/u;
+        if (!emojiRegex.test(icon)) {
+            errors.push({
+                name: 'iconError',
+                error: 'Icon must be an emoji.',
+            });
+            valid = false;
+        }
+    }
+
+    return {
+        valid,
+        errors,
+    };
+};
+
+export const createInterestWithImageValidation = (data: any) => {
     let valid = true;
     let errors = [];
     let { title, image } = data;

@@ -7,7 +7,6 @@ import MarkerCard from '../layout/markerCard2';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTheme } from '../../hooks/useTheme';
 import SelectedEventScreen from '../../screens/events/selectedEvent';
-import { usePlacesContext } from '../../context/places.context';
 import PlacesMarker from '../layout/placesMarker';
 import { Images } from '../../style/images';
 import { useNavigation } from '@react-navigation/native';
@@ -22,8 +21,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
     const [selectedEvent, setSelectedEvent] = useState<any | null>(null);
     const _map = useRef<MapView | null>(null);
     const { mapRegion, setMapRegion } = useMapContext();
-    const { events } = useEventsContext();
-    const { restaurants, bars } = usePlacesContext();
+    const { mapScreenEvents } = useEventsContext();
     const [snapPoint, setSnapPoint] = useState('80%');
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.75} />, []);
@@ -31,7 +29,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
     const [currentAltitude, setCurrentAltitude]: any = useState<number>(500);
 
     const handleOpen = (eventId: string) => {
-        const selectedEventDetails = events.find((event: any) => event._id.toString() === eventId);
+        const selectedEventDetails = mapScreenEvents.find((event: any) => event._id.toString() === eventId);
         setSelectedEvent(selectedEventDetails);
         setSnapPoint('90%');
         bottomSheetRef.current?.present();
@@ -84,7 +82,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                         }
                     }}
                 >
-                    {events.map((event: any) => {
+                    {mapScreenEvents.map((event: any) => {
                         let latitude = event.location.coordinates[1];
                         let longitude = event.location.coordinates[0];
                         return (
@@ -93,7 +91,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                             </Marker>
                         );
                     })}
-                    {restaurants.map((item: any, i: number) => {
+                    {/* {restaurants.map((item: any, i: number) => {
                         let latitude = item.geometry.lat ? item.geometry.lat : item.geometry.location.lat;
                         let longitude = item.geometry.lng ? item.geometry.lng : item.geometry.location.lng;
                         return (
@@ -110,7 +108,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                                 <PlacesMarker icon={Images.BEER_ICON} />
                             </Marker>
                         );
-                    })}
+                    })} */}
                 </MapView>
             </View>
 
