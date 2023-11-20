@@ -134,8 +134,6 @@ export const EventsProvider = ({ children }: any) => {
         }
     };
 
-    console.log('map screen events -->', JSON.stringify(mapScreenEvents));
-
     const getGooglePlaces = async (interestTitle: string) => {
         console.log('interest title -->', interestTitle);
         let data = {

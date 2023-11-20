@@ -1,7 +1,6 @@
 import { Image, StyleSheet, Touchable, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { useTheme } from '../../hooks/useTheme';
-import SmallCloseButton from '../accordions/smallCloseButton';
 import { Text } from '../../style/typography';
 
 type Props = {
@@ -16,7 +15,6 @@ type Props = {
 const BigIterestIcon = ({ title, onPress, disabled, icon, image }: Props) => {
     const { colors } = useTheme();
     const [selected, setSelected] = React.useState(false);
-    console.log('passed icon', icon);
 
     React.useEffect(() => {}, [icon]);
 

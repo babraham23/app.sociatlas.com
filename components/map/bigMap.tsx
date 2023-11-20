@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import MapView, { Region, Camera, Marker } from 'react-native-maps';
 import { useMapContext } from '../../context/map.context';
 import { useEventsContext } from '../../context/events.context';
-import MarkerCard from '../layout/markerCard2';
+import MarkerCard from '../layout/markerCard3';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTheme } from '../../hooks/useTheme';
 import SelectedEventScreen from '../../screens/events/selectedEvent';
@@ -87,7 +87,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                         let longitude = event.location.coordinates[0];
                         return (
                             <Marker key={event._id} coordinate={{ latitude, longitude }} onPress={() => handleOpen(event._id)}>
-                                <MarkerCard interests={event.interests} video={event.video} image={event.image} title={event.title} description={event.description} />
+                                <MarkerCard icon={event.interests[0].icon} title={event.title} />
                             </Marker>
                         );
                     })}
