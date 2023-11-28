@@ -12,7 +12,7 @@ type Props = {
 const SearchMapForm = ({ handleDismiss }: Props) => {
     const [search, setSearch] = React.useState('');
     const { colors } = useTheme();
-    const { interests, setSelectedInterest, getEventsByLocation, interestRadius, activeCategories, scrollBarData } = useEventsContext();
+    const { scrollBarData } = useEventsContext();
 
     const filteredInterests = React.useMemo(() => {
         if (search === '') {
@@ -20,13 +20,7 @@ const SearchMapForm = ({ handleDismiss }: Props) => {
         } else {
             return scrollBarData.filter((interest: any) => interest.title.toLowerCase().includes(search.toLowerCase()));
         }
-    }, [search, interests]);
-
-    const setInterest = (item: any) => {
-        setSelectedInterest(item);
-        getEventsByLocation(item.title, interestRadius);
-        handleDismiss();
-    };
+    }, [search, scrollBarData]);
 
     return (
         <View style={[{ flex: 1, backgroundColor: colors.card }]}>

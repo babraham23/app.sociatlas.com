@@ -10,7 +10,7 @@ type Props = {
 };
 
 const SearchMapLayout = ({ title, scrollBarData }: Props) => {
-    const { colors, borderRadius }: any = useTheme();
+    const { colors }: any = useTheme();
     const { getMapEventsByLocation, interestRadius, selecteMapInterests, setSelectedMapInterests } = useEventsContext();
 
     const setItem = (item: any) => {
@@ -51,11 +51,11 @@ const SearchMapLayout = ({ title, scrollBarData }: Props) => {
                             {item.image ? (
                                 <Image source={{ uri: item.image }} style={styles.image} />
                             ) : (
-                                <Text fontSize={18} style={styles.icon}>
+                                <Text style={styles.icon}>
                                     {item.icon}
                                 </Text>
                             )}
-                            <Text bold fontSize={14} color={isSelected ? colors.primary : colors.text} style={[{ color: colors.background }]}>
+                            <Text color={isSelected ? colors.primary : colors.text}>
                                 {item.title}
                             </Text>
                         </TouchableOpacity>
@@ -87,16 +87,15 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
     },
     icon: {
-        paddingRight: 5,
-        paddingBottom: 5,
+        marginRight: 5,
     },
     buttonWrapper: {
-        alignItems: 'center',
-        flexDirection: 'row',
         padding: 10,
-        borderWidth: 0.5,
+        borderWidth: 1,
+        borderRadius: 30,
         margin: 5,
-        borderRadius: 50,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     image: {
         width: 25,
