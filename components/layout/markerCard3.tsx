@@ -21,7 +21,7 @@ const MarkerCard3 = ({ icon, title, image, video }: Props) => {
             {icon && <Text fontSize={70}>{icon}</Text>}
             {image && <Image source={{ uri: dummyImage }} style={styles.image} />}
             {video && <Video source={dummyVideo} style={styles.image} resizeMode={ResizeMode.COVER} shouldPlay isLooping />}
-            <Text center bold lineHeight={16} numberOfLines={4} >
+            <Text center bold lineHeight={16} numberOfLines={4}>
                 {title}
             </Text>
         </View>

@@ -26,6 +26,7 @@ type Context = {
     getMapEventsByLocation?: any;
     selecteMapInterests?: any;
     setSelectedMapInterests?: any;
+    activeCategories?: any;
 };
 
 const EventsContext = createContext<Context>({
@@ -49,6 +50,7 @@ const EventsContext = createContext<Context>({
     setMapScreenEvents: () => [],
     selecteMapInterests: [],
     setSelectedMapInterests: () => [],
+    activeCategories: {},
 });
 
 export const EventsProvider = ({ children }: any) => {
@@ -222,6 +224,7 @@ export const EventsProvider = ({ children }: any) => {
                 setMapScreenEvents,
                 selecteMapInterests,
                 setSelectedMapInterests,
+                activeCategories,
             }}
         >
             {children}

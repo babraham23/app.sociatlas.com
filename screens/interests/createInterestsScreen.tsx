@@ -32,7 +32,7 @@ const CreateInterestsScreen = () => {
     const [interestError, setInterestError] = React.useState('');
     const [interestExistsError, setInterestExistsError] = React.useState(false);
     const [emojiOrImage, setEmojiOrImage] = React.useState(false); // true for emoji, false for image
-    const [icon, setIcon]: any = React.useState('');
+    const [icon, setIcon]: any = React.useState('🏈');
     const [iconError, setIconError]: any = React.useState('');
 
     console.log('icon length -->', icon.length);

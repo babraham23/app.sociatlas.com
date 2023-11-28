@@ -13,6 +13,7 @@ import SearchForm from '../../components/forms/searchForm';
 import { useUserContext } from '../../context/user.context';
 import { useCreateEventContext } from '../../context/createEvent.context';
 import MapScrollBar from '../../components/scrollbar/mapScrollBar';
+import SearchMapForm from '../../components/forms/searchMapForm';
 
 type Props = {};
 
@@ -75,7 +76,7 @@ const ExploreScreen = ({}: Props) => {
                 backdropComponent={renderBackdrop}
                 onDismiss={() => handleDismiss()}
             >
-                {form === 'eventsForm' ? <EventForms handleDismiss={handleDismiss} /> : <SearchForm handleDismiss={handleDismiss} />}
+                {form === 'eventsForm' ? <EventForms handleDismiss={handleDismiss} /> : <SearchMapForm handleDismiss={handleDismiss} />}
             </BottomSheetModal>
         </>
     );
