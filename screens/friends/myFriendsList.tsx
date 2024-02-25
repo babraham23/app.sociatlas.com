@@ -34,10 +34,12 @@ const MyFriendList = () => {
     };
 
     const searchUsers = async (search: string) => {
+        console.log('Getting user', search);
         if (search.length >= 3) {
             let body = { searchTerm: search };
             try {
                 let response = await searchForUser(body);
+                console.log('response -->', response.data);
                 setSearchResults(response.data);
             } catch {
                 console.log('error');

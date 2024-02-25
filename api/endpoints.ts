@@ -22,7 +22,6 @@ export const UPLOAD_EVENT_IMAGE_TO_BLOB = `${BASE_URL}/events/uploadImageToBlob`
 // Delete image from blob
 export const DELETE_IMAGE_FROM_BLOB = `${BASE_URL}/events/deleteImageFromBlob`;
 
-
 // ------ INTERESTS ------
 // POST create interest
 export const CREATE_INTEREST = `${BASE_URL}/interests/createInterest`;
@@ -45,7 +44,6 @@ export const GET_INTERESTS = `${BASE_URL}/interests/getInterests`;
 // interests.getScrollBarData
 export const GET_SCROLL_BAR_DATA = `${BASE_URL}/interests/getScrollBarData`;
 
-
 // ------ USER ------
 // Register user
 export const REGISTER_USER = `${BASE_URL}/user/registerUser`;
@@ -65,6 +63,18 @@ export const EDIT_USER = `${BASE_URL}/user/editUser`;
 // search for user
 export const SEARCH_FOR_USER = `${BASE_URL}/user/searchForUser`;
 
+// ------ FRIENDS ------
+// inviteUserAsFriend
+export const INVITE_USER_AS_FRIEND = `${BASE_URL}/friends/inviteUserAsFriend`;
+
+//getAllFriendRequests
+export const GET_USERS_FRIEND_REQUESTS = (userId: string) => `${BASE_URL}/friends/getAllFriendRequests?receiverUserId=${userId}`;
+
+//respondToFriendRequest
+export const RESPOND_TO_FRIEND_REQUEST = `${BASE_URL}/friends/respondToFriendRequest`;
+
+// removeFriend
+export const REMOVE_FRIEND = `${BASE_URL}/friends/removeFriend`;
 
 // ------ CHAT ------
 export const FETCH_CHAT_ROOMS = `${BASE_URL}/chatrooms`;
