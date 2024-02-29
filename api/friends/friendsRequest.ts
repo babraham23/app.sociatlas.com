@@ -1,5 +1,5 @@
 import { HTTP } from '../http';
-import { INVITE_USER_AS_FRIEND, GET_USERS_FRIEND_REQUESTS, RESPOND_TO_FRIEND_REQUEST, REMOVE_FRIEND } from '../endpoints';
+import { INVITE_USER_AS_FRIEND, GET_USERS_FRIEND_REQUESTS, RESPOND_TO_FRIEND_REQUEST, REMOVE_FRIEND, GET_ALL_FRIENDS } from '../endpoints';
 
 // inviteUserAsFriend
 export const inviteUserAsFriend = (DATA: any, HEADERS?: any) => {
@@ -13,7 +13,6 @@ export const inviteUserAsFriend = (DATA: any, HEADERS?: any) => {
 
 // getUserFriends
 export const getUsersFriendRequests = (userId: string, HEADERS?: any) => {
-    console.log('url -->', GET_USERS_FRIEND_REQUESTS(userId))
     return HTTP({
         Method: 'GET',
         Url: GET_USERS_FRIEND_REQUESTS(userId),
@@ -38,5 +37,14 @@ export const removeFriend = (DATA: any, HEADERS?: any) => {
         Url: REMOVE_FRIEND,
         Headers: HEADERS,
         Data: DATA,
+    });
+};
+
+// get all friends
+export const getAllUsersFriends = (userId: string, HEADERS?: any) => {
+    return HTTP({
+        Method: 'GET',
+        Url: GET_ALL_FRIENDS(userId),
+        Headers: HEADERS,
     });
 };

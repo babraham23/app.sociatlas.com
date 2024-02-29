@@ -4,7 +4,7 @@ import GuestAvatar from './guestAvatar';
 import { useTheme } from '../../hooks/useTheme';
 import { Text } from '../../style/typography';
 
-const MessageFriendBanner = ({ onPress, name, username, profilePic }: any) => {
+const MessageFriendBanner = ({ onPress, name, username, profilePic, addToFriendButton, onAddFriendPress }: any) => {
     const { colors } = useTheme();
 
     return (
@@ -16,6 +16,7 @@ const MessageFriendBanner = ({ onPress, name, username, profilePic }: any) => {
                     @{username}
                 </Text>
             </View>
+            {addToFriendButton && <TouchableOpacity style={styles.addFriendButton} onPress={onAddFriendPress} />}
         </TouchableOpacity>
     );
 };
@@ -41,4 +42,14 @@ const styles = StyleSheet.create({
         zIndex: 1,
         borderWidth: 1.5,
     },
+    addFriendButton: {
+        width: 25,
+        height: 25,
+        borderRadius: 13,
+        zIndex: 1,
+        borderWidth: 1.5,
+        position: 'absolute',
+        backgroundColor: 'red',
+        right: 10,
+    }
 });

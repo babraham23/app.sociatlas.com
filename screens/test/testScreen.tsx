@@ -4,7 +4,7 @@ import OvalButton from '../../components/buttons/ovalButton';
 import { getUsersFriendRequests, inviteUserAsFriend, removeFriend, respondToFriendRequest } from '../../api/friends/friendsRequest';
 
 const TestScreen = () => {
-    const addUSerAsFriend = async () => {
+    const addUserAsFriend = async () => {
         let body = {
             senderUserId: '6570f7f82394b47863ad4cfa',
             receiverUserId: '6570f8282394b47863ad4cfe',
@@ -39,7 +39,7 @@ const TestScreen = () => {
 
     return (
         <View style={styles.container}>
-            <OvalButton title="Invite user" onPress={() => addUSerAsFriend()} />
+            <OvalButton title="Invite user" onPress={() => addUserAsFriend()} />
             <OvalButton title="Get users friends requests" onPress={() => getUserFriends()} />
             <OvalButton title="Respond to friend request" onPress={() => respondToFrinedRequest()} />
             <OvalButton title="Remove friend" onPress={() => removeFriendFromList()} />

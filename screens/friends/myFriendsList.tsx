@@ -4,6 +4,8 @@ import FriendListScrollInput from '../../components/layout/friendListScrollInput
 import { useNavigation } from '@react-navigation/native';
 import MessageFriendBanner from '../../components/layout/messageFriendBanner';
 import { searchForUser } from '../../api/user/user.requests';
+import { useFriendsContext } from '../../context/friends.context';
+
 
 const dd = [
     { _id: 1, name: 'John Doe', username: 'johndoe123', profilePic: '' },
@@ -27,6 +29,7 @@ const MyFriendList = () => {
     const [scrollYValue] = useState(new Animated.Value(0));
     const navigation: any = useNavigation();
     const [searchResults, setSearchResults] = useState([]);
+    const { addUserAsFriend } = useFriendsContext();
 
     const handleNavigation = () => {
         navigation.goBack();
@@ -47,6 +50,12 @@ const MyFriendList = () => {
         } else setSearchResults([]);
     };
 
+    const addFriend = (freindId: string) => {
+        // let response = await inviteUserAsFriend(freindId);
+        // console.log('response -->', response);
+        addUserAsFriend(freindId)
+    };
+
     return (
         <View style={styles.container}>
             <FriendListScrollInput placeholder="Search username or name..." scrollYValue={scrollYValue} onBackPress={() => navigation.goBack()} onChangeText={searchUsers} />
@@ -59,7 +68,16 @@ const MyFriendList = () => {
                 onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYValue } } }], { useNativeDriver: false })}
                 contentContainerStyle={styles.contentContainer}
                 renderItem={({ item }: any) => (
-                    <MessageFriendBanner onPress={handleNavigation} key={item._id} name={item.name} username={item.username} profilePic={item.profilePic} _id={item._id} />
+                    <MessageFriendBanner
+                        addToFriendButton
+                        onAddFriendPress={() => addFriend(item._id)}
+                        onPress={handleNavigation}
+                        key={item._id}
+                        name={item.name}
+                        username={item.username}
+                        profilePic={item.profilePic}
+                        _id={item._id}
+                    />
                 )}
                 showsVerticalScrollIndicator={false}
             />

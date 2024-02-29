@@ -76,5 +76,9 @@ export const RESPOND_TO_FRIEND_REQUEST = `${BASE_URL}/friends/respondToFriendReq
 // removeFriend
 export const REMOVE_FRIEND = `${BASE_URL}/friends/removeFriend`;
 
+// get all friends
+export const GET_ALL_FRIENDS = (userId: string) => `${BASE_URL}/friends/getUserFriends?userId=${userId}`;
+
+
 // ------ CHAT ------
 export const FETCH_CHAT_ROOMS = `${BASE_URL}/chatrooms`;
