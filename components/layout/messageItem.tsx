@@ -4,20 +4,16 @@ import { Text } from '../../style/typography';
 import { useTheme } from '../../hooks/useTheme';
 import { useNavigation } from '@react-navigation/native';
 
-const MessageItem = () => {
+const MessageItem = ({ name, onPress }: any) => {
     const { colors } = useTheme();
-    const navigation: any = useNavigation();
     return (
-        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('MessageReadScreen')} style={[styles.container, { borderBottomColor: colors.border }]}>
+        <TouchableOpacity activeOpacity={1} onPress={onPress} style={[styles.container, { borderBottomColor: colors.border }]}>
             <View style={styles.avatar} />
             <View style={styles.textContainer}>
                 <View style={styles.top}>
                     <View style={styles.left}>
                         <View style={styles.nameWrapper} >
-                            <Text numberOfLines={1} bold>Nameslkflkmfs</Text>
-                        </View>
-                        <View style={styles.nameWrapper} >
-                            <Text numberOfLines={1} color={colors.dark_grey} >@Nameslkflkmfs</Text>
+                            <Text numberOfLines={1} bold>{name}</Text>
                         </View>
                     </View>
                     <View style={styles.right}>

@@ -16,8 +16,13 @@ const MessagesFriendList = () => {
     }, []);
 
     const handlePress = (friend: any) => {
+        
         // check to see if that room exists
+        // create a custom room id by combining the user id and the friend id
+        // if it exists navigate to that room
+
         // if not create a new room
+        console.log('friend -->', friend._id);
     }
 
     return (
@@ -36,15 +41,13 @@ const MessagesFriendList = () => {
                 scrollEventThrottle={16}
                 onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYValue } } }], { useNativeDriver: false })}
                 contentContainerStyle={styles.contentContainer}
-                renderItem={({ item }) => (
+                renderItem={({ item }: { item: { name: string, username: string, profilePic: string, _id: string } }) => (
                     <MessageFriendBanner
-                        // onPress={() => handleSelection(item)}
-                        // key={item._id}
-                        // onRemovePress={() => onRemovePress(item)}
                         name={item.name}
                         username={item.username}
                         profilePic={item.profilePic}
                         _id={item._id}
+                        onPress={() => handlePress(item)}
                     />
                 )}
                 showsVerticalScrollIndicator={false}

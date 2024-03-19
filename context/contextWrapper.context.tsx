@@ -4,6 +4,7 @@ import { MapProvider } from './map.context';
 import { UserProvider } from './user.context';
 import { CreateEventProvider } from './createEvent.context';
 import { FriendsProvider } from './friends.context';
+import { ChatProvider } from './chat.context';
 
 const ContextWrapper = ({ children }: any) => {
     return (
@@ -11,7 +12,9 @@ const ContextWrapper = ({ children }: any) => {
             <UserProvider>
                 <EventsProvider>
                     <CreateEventProvider>
-                        <FriendsProvider>{children}</FriendsProvider>
+                        <FriendsProvider>
+                            <ChatProvider>{children}</ChatProvider>
+                        </FriendsProvider>
                     </CreateEventProvider>
                 </EventsProvider>
             </UserProvider>

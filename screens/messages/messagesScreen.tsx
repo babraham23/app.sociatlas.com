@@ -1,32 +1,22 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 import MessagesHeader from '../../components/headers/messagesHeader';
 import MessageFriendRequestIcon from '../../components/layout/MessageFriendRequestIcon';
 import { useTheme } from '../../hooks/useTheme';
-import { fetchChatRooms } from '../../api/chat/chat.requests';
 import MessageFab from '../../components/buttons/messageFAB';
 import { useNavigation } from '@react-navigation/native';
 import { useFriendsContext } from '../../context/friends.context';
-
+import { useChatContext } from '../../context/chat.context';
+import MessageItem from '../../components/layout/messageItem';
+import { useUserContext } from '../../context/user.context';
 
 const MessagesScreen = () => {
     const { colors } = useTheme();
     const navigation: any = useNavigation();
     const { friendRequests, actionFriendRequest, getUserFriendsRequest } = useFriendsContext();
+    const { user } = useUserContext(); 
+    const { chatRooms, getUserChatRooms } = useChatContext();
 
-    const getChatRooms = async () => {
-        const res = await fetchChatRooms();
-        console.log('response -->', JSON.stringify(res));
-    };
-
-    const fetchGroups = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/api/chatrooms');
-            const data = await response.json();
-        } catch (err) {
-            console.error(err);
-        }
-    };
 
     const onFrinedrequestPress = (request: any) => {
         Alert.alert(`@${request.sender.username}`, `${request.sender.name} would like to be your friend`, [
@@ -38,19 +28,26 @@ const MessagesScreen = () => {
                 text: 'Decline',
                 onPress: () => actionFriendRequest(request.sender._id, 'decline'),
             },
-            // {
-            //     text: 'Block',
-            //     onPress: () => console.log('Decline Pressed'),
-            // },
         ]);
     };
 
     useEffect(() => {
-        // getChatRooms();
-        // fetchGroups();
-        // if user is logged in but should never get here if not 
         getUserFriendsRequest();
     }, []);
+
+    useEffect(() => {
+        let user_id = '6570f7f82394b47863ad4cfa';
+        if (getUserChatRooms) {
+            getUserChatRooms(user_id);
+        }
+    }, [chatRooms]);
+
+    const handleOnPress = (room: any) => {
+        navigation.navigate('MessagingScreen', {
+            id: room._id,
+            name: room.name,
+        });
+    };
 
     return (
         <>
@@ -60,8 +57,7 @@ const MessagesScreen = () => {
                     friendRequests.map((request: any, index: number) => (
                         <MessageFriendRequestIcon key={index} userName={request.sender.name} userHandle={request.sender.username} onPress={() => onFrinedrequestPress(request)} />
                     ))}
-                {/* <MessageItem />
-                <MessageItem /> */}
+                {chatRooms.length > 0 && chatRooms.map((room: any, index: number) => <MessageItem key={room._id} name={room.name} onPress={() => handleOnPress(room)} />)}
             </ScrollView>
             <MessageFab style={styles.fab} onPress={() => navigation.navigate('MessagesFriendList')} />
         </>

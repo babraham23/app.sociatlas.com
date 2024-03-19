@@ -35,15 +35,14 @@ export const FriendsProvider = ({ children }: any) => {
     };
 
     const getUserFriendsRequest = async () => {
-        console.log('GETTING FRIEND REQUESTS');
+
         try {
             let response = await getUsersFriendRequests(user._id);
             // alert(JSON.stringify(response.data));
-            console.log('getting friend requests respond -->', JSON.stringify(response.data));
             setFriendsRequests(response.data.invitations);
         } catch (error: any) {
             if (error.response) {
-                console.log('Error getting user friends:', JSON.stringify(error.response.data));
+                // console.log('Error getting user friends:', JSON.stringify(error.response.data));
             }
         }
     };
