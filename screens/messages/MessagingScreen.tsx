@@ -1,33 +1,21 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, TextInput, Text, FlatList, Pressable, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 import socket from '../../api/socket';
 import { useChatContext } from '../../context/chat.context';
-import { GiftedChat, IMessage } from 'react-native-gifted-chat';
+import { GiftedChat } from 'react-native-gifted-chat';
 import MessageBubble from '../../components/chat/MessageBubble';
 import ChatToolBat from '../../components/inputs/ChatToolBar';
 import MessagesHeader from '../../components/headers/messagesHeader';
+import { useUserContext } from '../../context/user.context';
 
 let user_id = '6570f7f82394b47863ad4cfa';
 let friendId = '6570f8282394b47863ad4cfe';
 
 const Messaging = ({ route, navigation }: any) => {
-    const [user, setUser] = useState('');
     const { name, id } = route.params;
     const [chatMessages, setChatMessages] = useState([]);
-    const [message, setMessage] = useState('');
     const { getRoomById, listenForRoomMessages, createNewMessage } = useChatContext();
-
-    const getUsername = async () => {
-        try {
-            const value = await AsyncStorage.getItem('username');
-            if (value !== null) {
-                setUser(value);
-            }
-        } catch (e) {
-            console.error('Error while loading username!');
-        }
-    };
+    const { user } = useUserContext();
 
     const handleRoomDisconnect = () => {
         console.log('Room disconnected');
@@ -35,14 +23,11 @@ const Messaging = ({ route, navigation }: any) => {
     };
 
     const getRoomMessages = async () => {
-        console.log('GETTING ROOM MESSAGES')
         let roomChats: any = await listenForRoomMessages();
         setChatMessages(roomChats);
     };
 
     useEffect(() => {
-        navigation.setOptions({ title: name });
-        getUsername();
         getRoomById(id);
         getRoomMessages();
         return () => {
@@ -56,11 +41,9 @@ const Messaging = ({ route, navigation }: any) => {
             <View style={styles.container}>
                 <GiftedChat
                     messages={chatMessages}
-                    // onSend={(messages) => onSend(messages)}
                     user={{
-                        _id: user_id,
-                        // Your user details
-                        name: 'Brett',
+                        _id: user._id,
+                        name: user.name,
                     }}
                     renderBubble={(props) => <MessageBubble {...props} />}
                     scrollToBottom
@@ -68,7 +51,7 @@ const Messaging = ({ route, navigation }: any) => {
                     renderInputToolbar={(props) => <ChatToolBat {...props} roomId={id} />}
                     inverted={false}
                     infiniteScroll
-                    loadEarlier
+                    // loadEarlier
                 />
                 {Platform.OS === 'ios' && <KeyboardAvoidingView />}
             </View>
@@ -111,23 +94,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-
-{
-    /* <View style={styles.messagingscreen}>
-                {chatMessages.length > 0 && (
-                    <FlatList
-                        ref={flatListRef}
-                        data={chatMessages}
-                        renderItem={({ item }) => <MessageComponent item={item} user={user} />}
-                        keyExtractor={(item: any) => item._id.toString()}
-                    />
-                )}
-            </View>
-
-            <View style={styles.messaginginputContainer}>
-                <TextInput style={styles.messaginginput} onChangeText={(value) => setMessage(value)} />
-                <Pressable style={styles.messagingbuttonContainer} onPress={handleNewMessage}>
-                    <Text style={{ color: '#f2f0f1', fontSize: 20 }}>SEND</Text>
-                </Pressable>
-            </View> */
-}

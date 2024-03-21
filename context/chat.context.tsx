@@ -1,9 +1,9 @@
 import React, { createContext, FC, useContext, useEffect, useState } from 'react';
 import socket from '../api/socket';
+import { useUserContext } from './user.context';
 
-
-let user_id = '6570f7f82394b47863ad4cfa'
-let friendId = '6570f8282394b47863ad4cfe'
+// let user_id = '6570f7f82394b47863ad4cfa'
+// let friendId = '6570f8282394b47863ad4cfe'
 
 type Context = {
     chatRooms?: any;
@@ -25,11 +25,11 @@ const ChatContext = createContext<Context>({
 
 export const ChatProvider = ({ children }: any) => {
     const [chatRooms, setChatRooms] = useState([]);
-
+    const { user } = useUserContext();
     // Get user chat rooms
     const getUserChatRooms = async (userId: string) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/getUserChatRooms/?userId=${userId}`);
+            const response = await fetch(`http://localhost:3000/api/getUserChatRooms/?userId=${user._id}`);
             const data = await response.json();
             setChatRooms(data);
         } catch (err) {
@@ -49,7 +49,6 @@ export const ChatProvider = ({ children }: any) => {
 
     // Listen for room messages
     const listenForRoomMessages = () => {
-        console.log('Listening for room messages');
         return new Promise((resolve) => {
             socket.on('listenForRoomMessages', (roomChats) => {
                 resolve(roomChats);
@@ -58,13 +57,13 @@ export const ChatProvider = ({ children }: any) => {
     };
 
     // Create new message
-    const createNewMessage = (message: string, roomId: string, user: string) => {
+    const createNewMessage = (message: string, roomId: string) => {
         socket.emit('newMessage', {
             message,
             room_id: roomId,
             user: {
                 name: user,
-                _id: user_id,
+                _id: user._id,
             },
         });
     };
