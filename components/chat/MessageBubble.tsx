@@ -7,6 +7,7 @@ const MessageBubble = (props: any) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{message}</Text>
+            
         </View>
     );
 };

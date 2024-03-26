@@ -80,6 +80,9 @@ export const REMOVE_FRIEND = `${BASE_URL}/friends/removeFriend`;
 // get all friends
 export const GET_ALL_FRIENDS = (userId: string) => `${BASE_URL}/friends/getUserFriends?userId=${userId}`;
 
-
 // ------ CHAT ------
-export const FETCH_CHAT_ROOMS = `${BASE_URL}/chatrooms`;
+// getUserChatRooms
+export const GET_USER_CHAT_ROOMS = (userId: string) => `${BASE_URL}/chat/getUserChatRooms/?userId=${userId}`;
+
+// getLocationChatRooms
+export const GET_LOCATION_CHAT_ROOMS = `${BASE_URL}/chat/getLocationChatRooms`;

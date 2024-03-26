@@ -14,9 +14,8 @@ const MessagesScreen = () => {
     const { colors } = useTheme();
     const navigation: any = useNavigation();
     const { friendRequests, actionFriendRequest, getUserFriendsRequest } = useFriendsContext();
-    const { user } = useUserContext(); 
+    const { user } = useUserContext();
     const { chatRooms, getUserChatRooms } = useChatContext();
-
 
     const onFrinedrequestPress = (request: any) => {
         Alert.alert(`@${request.sender.username}`, `${request.sender.name} would like to be your friend`, [
@@ -38,15 +37,12 @@ const MessagesScreen = () => {
     useEffect(() => {
         let user_id = '6570f7f82394b47863ad4cfa';
         if (getUserChatRooms) {
-            getUserChatRooms(user_id);
+            getUserChatRooms();
         }
     }, [chatRooms]);
 
     const handleOnPress = (room: any) => {
-        navigation.navigate('MessagingScreen', {
-            id: room._id,
-            name: room.name,
-        });
+        navigation.navigate('MessagingScreen', { id: room._id });
     };
 
     return (

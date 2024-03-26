@@ -8,17 +8,24 @@ type Props = {
     style?: any;
 };
 
-const CloseButton = ({ onPress, style }: Props) => {
+const LocationChatCloseButton = ({ onPress, style }: Props) => {
     const { colors } = useTheme();
     return (
         <TouchableOpacity onPress={onPress} style={[style, styles.container]}>
-            <AntDesign name="close" size={20} color={colors.text} />
+            <AntDesign name="close" size={25} color={colors.text} />
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Slightly transparent background
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
-export default CloseButton;
+export default LocationChatCloseButton;

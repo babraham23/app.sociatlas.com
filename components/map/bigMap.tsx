@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import MapView, { Region, Camera, Marker } from 'react-native-maps';
 import { useMapContext } from '../../context/map.context';
 import { useEventsContext } from '../../context/events.context';
@@ -11,6 +11,8 @@ import PlacesMarker from '../layout/placesMarker';
 import { Images } from '../../style/images';
 import { useNavigation } from '@react-navigation/native';
 import { customMapStyle } from './customMapStyle';
+import { useLocationChatContext } from '../../context/locationChat.context';
+import { Text } from '../../style/typography';
 
 interface BigMapProps {
     onMapPress: (coordinate: { latitude: number; longitude: number }) => void;
@@ -27,6 +29,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
     const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.75} />, []);
     const navigation: any = useNavigation();
     const [currentAltitude, setCurrentAltitude]: any = useState<number>(500);
+    const { getLocationChatRooms, locationChatRooms } = useLocationChatContext();
 
     const handleOpen = (eventId: string) => {
         const selectedEventDetails = mapScreenEvents.find((event: any) => event._id.toString() === eventId);
@@ -41,7 +44,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
 
     const snapPoints = useMemo(() => [snapPoint], [snapPoint]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (_map.current) {
             const cameraConfig: Camera = {
                 center: {
@@ -58,8 +61,17 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
         }
     }, [mapRegion.latitude, mapRegion.longitude, currentAltitude]);
 
-    const onPlacePress = (item: any) => {
-        navigation.navigate('PlacesScreen', { item });
+    // useEffect(() => {
+    //     getLocationChatRooms();
+    // }, []);
+    useEffect(() => {
+        if (getLocationChatRooms) {
+            getLocationChatRooms();
+        }
+    }, [locationChatRooms]);
+
+    const onLocationChatOpen = (item: any) => {
+        navigation.navigate('LocationChatScreen', { item });
     };
 
     return (
@@ -91,6 +103,20 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                             </Marker>
                         );
                     })}
+                    {locationChatRooms &&
+                        locationChatRooms.length > 0 &&
+                        locationChatRooms.map((room: any) => {
+                            let latitude = room.location.coordinates[0];
+                            let longitude = room.location.coordinates[1];
+                            return (
+                                <Marker key={room._id} coordinate={{ latitude, longitude }} onPress={() => onLocationChatOpen(room)}>
+                                    <TouchableOpacity style={styles.locationChatCard}>
+                                        <Text fontSize={60} >💬</Text>
+                                    </TouchableOpacity>
+                                </Marker>
+                            );
+                        })}
+
                     {/* {restaurants.map((item: any, i: number) => {
                         let latitude = item.geometry.lat ? item.geometry.lat : item.geometry.location.lat;
                         let longitude = item.geometry.lng ? item.geometry.lng : item.geometry.location.lng;
@@ -136,6 +162,16 @@ const styles = StyleSheet.create({
     },
     map: {
         ...StyleSheet.absoluteFillObject,
+    },
+    locationChatCard: {
+        width: 100,
+        height: 100,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1.5,
+        borderColor: '#0bc4ff',
     },
 });
 

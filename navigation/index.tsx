@@ -34,6 +34,7 @@ import MessagesFriendList from '../screens/messages/messagesFriendList';
 import MyFriendList from '../screens/friends/myFriendsList';
 import FriendProfileScreen from '../screens/friends/friendProfileScreen';
 import MessagingScreen from '../screens/messages/MessagingScreen';
+import LocationChatScreen from '../screens/chat/LocationChatScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     // const navigationRef: any = useNavigationContainerRef();
@@ -101,6 +102,7 @@ function RootNavigator() {
                     <Stack.Screen name="PlacesScreen" component={PlacesScreen} options={{ headerShown: false }} />
                     <Stack.Screen name="MessagesFriendList" component={MessagesFriendList} options={{ headerShown: false }} />
                     <Stack.Screen name="MyFriendList" component={MyFriendList} options={{ headerShown: false }} />
+                    <Stack.Screen name="LocationChatScreen" component={LocationChatScreen} options={{ headerShown: false }} />
                 </Stack.Group>
             </Stack.Navigator>
         </BottomSheetModalProvider>

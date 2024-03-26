@@ -8,13 +8,11 @@ import ChatToolBat from '../../components/inputs/ChatToolBar';
 import MessagesHeader from '../../components/headers/messagesHeader';
 import { useUserContext } from '../../context/user.context';
 
-let user_id = '6570f7f82394b47863ad4cfa';
-let friendId = '6570f8282394b47863ad4cfe';
 
-const Messaging = ({ route, navigation }: any) => {
-    const { name, id } = route.params;
+const Messaging = ({ route }: any) => {
+    const { id } = route.params;
     const [chatMessages, setChatMessages] = useState([]);
-    const { getRoomById, listenForRoomMessages, createNewMessage } = useChatContext();
+    const { getRoomById, listenForRoomMessages } = useChatContext();
     const { user } = useUserContext();
 
     const handleRoomDisconnect = () => {
@@ -65,32 +63,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-    },
-    messagingscreen: {
-        flex: 1,
-        paddingHorizontal: 16,
-    },
-    messaginginputContainer: {
-        width: '100%',
-        minHeight: 100,
-        backgroundColor: 'white',
-        paddingVertical: 30,
-        paddingHorizontal: 15,
-        justifyContent: 'center',
-        flexDirection: 'row',
-    },
-    messaginginput: {
-        borderWidth: 1,
-        padding: 15,
-        flex: 1,
-        marginRight: 10,
-        borderRadius: 20,
-    },
-    messagingbuttonContainer: {
-        width: '30%',
-        backgroundColor: 'green',
-        borderRadius: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+    }
 });
