@@ -2,7 +2,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
-import { useBottomSheetContext } from '../../context/bottomSheet.context';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useUserContext } from '../../context/user.context';
 import { useNavigation } from '@react-navigation/native';

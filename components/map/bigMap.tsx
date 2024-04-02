@@ -111,7 +111,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                             return (
                                 <Marker key={room._id} coordinate={{ latitude, longitude }} onPress={() => onLocationChatOpen(room)}>
                                     <TouchableOpacity style={styles.locationChatCard}>
-                                        <Text fontSize={60} >💬</Text>
+                                        <Text fontSize={60}>💬</Text>
                                     </TouchableOpacity>
                                 </Marker>
                             );
