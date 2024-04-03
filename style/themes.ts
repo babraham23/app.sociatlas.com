@@ -4,7 +4,7 @@ export const CustomDefaultTheme = {
     ...NavigationDefaultTheme,
     colors: {
         ...NavigationDefaultTheme.colors,
-        primary: '#9134E1',
+        primary: '#ff02ef',
         secondary: '#a378eb',
         dark_grey: '#707070',
         grey: '#B4B4B4',
@@ -31,7 +31,7 @@ export const CustomDarkTheme = {
     ...NavigationDarkTheme,
     colors: {
         ...NavigationDarkTheme.colors,
-        primary: '#9134E1',
+        primary: '#ff02ef',
         secondary: '#a378eb',
         dark_grey: '#707070',
         grey: '#B4B4B4',
