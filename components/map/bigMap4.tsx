@@ -8,9 +8,9 @@ import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTheme } from '../../hooks/useTheme';
 import SelectedEventScreen from '../../screens/events/selectedEvent';
 import { useCreateEventContext } from '../../context/createEvent.context';
-import { usePlacesContext } from '../../context/places.context';
-import PlacesMarker from '../layout/placesMarker';
-import { Images } from '../../style/images';
+// import { usePlacesContext } from '../../context/places.context';
+// import PlacesMarker from '../layout/placesMarker';
+// import { Images } from '../../style/images';
 import { useNavigation } from '@react-navigation/native';
 
 const BigMap = ({ onMapPress }: any) => {
@@ -20,7 +20,7 @@ const BigMap = ({ onMapPress }: any) => {
     // const { mapRegion, setMapRegion } = useCreateEventContext();
     const { mapRegion, setMapRegion } = useMapContext();
     const { events } = useEventsContext();
-    const { restaurants, bars } = usePlacesContext();
+    // const { restaurants, bars } = usePlacesContext();
     const [snapPoint, setSnapPoint] = useState('80%');
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.75} />, []);
@@ -111,7 +111,7 @@ const BigMap = ({ onMapPress }: any) => {
                             </Marker>
                         );
                     })}
-                    {restaurants.map((item: any, i: number) => {
+                    {/* {restaurants.map((item: any, i: number) => {
                         let latitude = item.geometry.lat ? item.geometry.lat : item.geometry.location.lat;
                         let longitude = item.geometry.lng ? item.geometry.lng : item.geometry.location.lng;
                         return (
@@ -128,7 +128,7 @@ const BigMap = ({ onMapPress }: any) => {
                                 <PlacesMarker icon={Images.BEER_ICON} />
                             </Marker>
                         );
-                    })}
+                    })} */}
                 </MapView>
             </View>
 

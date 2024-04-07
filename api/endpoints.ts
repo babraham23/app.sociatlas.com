@@ -1,5 +1,7 @@
-export const BASE_URL = 'http://localhost:3000/api';
-export const SOCKET_URL = 'http://localhost:3000';
+// export const BASE_URL = 'http://localhost:3000/api';
+export const BASE_URL = 'https://api-chatmap-com-38bcd0780f76.herokuapp.com/api';
+export const SOCKET_URL = 'https://api-chatmap-com-38bcd0780f76.herokuapp.com';
+// export const SOCKET_URL = 'http://localhost:3000';
 // export const BASE_URL = 'https://api-travel-phrases-com-six.vercel.app/';
 
 export const GOOGLE_ADSENSE_CLIENT_ID = 'ca-app-pub-5595468450745517~8719690904';

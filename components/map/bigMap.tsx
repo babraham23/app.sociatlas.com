@@ -13,6 +13,8 @@ import { useNavigation } from '@react-navigation/native';
 import { customMapStyle } from './customMapStyle';
 import { useLocationChatContext } from '../../context/locationChat.context';
 import { Text } from '../../style/typography';
+import LocationChatMapIcon from '../layout/LocationChatMapIcon';
+import EventMapIcon from '../layout/EventMapIcon';
 
 interface BigMapProps {
     onMapPress: (coordinate: { latitude: number; longitude: number }) => void;
@@ -99,7 +101,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                         let longitude = event.location.coordinates[0];
                         return (
                             <Marker key={event._id} coordinate={{ latitude, longitude }} onPress={() => handleOpen(event._id)}>
-                                <MarkerCard icon={event.interests[0].icon} title={event.title} />
+                                <EventMapIcon icon={event.interests[0].icon} title={event.title} />
                             </Marker>
                         );
                     })}
@@ -110,9 +112,7 @@ const BigMap: React.FC<BigMapProps> = ({ onMapPress }) => {
                             let longitude = room.location.coordinates[1];
                             return (
                                 <Marker key={room._id} coordinate={{ latitude, longitude }} onPress={() => onLocationChatOpen(room)}>
-                                    <TouchableOpacity style={styles.locationChatCard}>
-                                        <Text fontSize={60}>💬</Text>
-                                    </TouchableOpacity>
+                                    <LocationChatMapIcon />
                                 </Marker>
                             );
                         })}
@@ -162,16 +162,6 @@ const styles = StyleSheet.create({
     },
     map: {
         ...StyleSheet.absoluteFillObject,
-    },
-    locationChatCard: {
-        width: 100,
-        height: 100,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1.5,
-        borderColor: '#0bc4ff',
     },
 });
 
